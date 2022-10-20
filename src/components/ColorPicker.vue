@@ -1,7 +1,12 @@
 <template>
 	<div>
 		<div class="cards">
-			<color-card />
+			<color-card
+				v-for="card in 5"
+				:key="card.id"
+				:startGenerateCards="startGenerateCards"
+				@getGeneratedCard="getGeneratedCard"
+			/>
 		</div>
 	</div>
 </template>
@@ -16,10 +21,16 @@ export default {
 	data() {
 		return {
 			startGenerateCards: false,
+			cards: [],
 		};
 	},
+	methods: {
+		getGeneratedCard(card) {
+			this.cards.push(card);
+		},
+	},
 	mounted() {
-		this.generateCards = true;
+		this.startGenerateCards = true;
 	},
 };
 </script>

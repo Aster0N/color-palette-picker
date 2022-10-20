@@ -3,7 +3,31 @@
 </template>
 
 <script>
-export default {};
+export default {
+	props: {
+		startGenerateCards: {
+			type: Boolean,
+			required: true,
+		},
+	},
+	methods: {
+		generateCard() {
+			const card = {
+				id: Date.now(),
+				color: Math.floor(Math.random() * 0xffffff).toString(16),
+				pinned: false,
+			};
+			this.$emit("getGeneratedCard", card);
+		},
+	},
+	watch: {
+		startGenerateCards(value) {
+			if (value) {
+				this.generateCard();
+			}
+		},
+	},
+};
 </script>
 
 <style lang="scss">
