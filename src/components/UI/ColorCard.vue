@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import { v4 as uuidv4 } from "uuid";
+
 export default {
 	props: {
 		startGenerateCards: {
@@ -13,7 +15,7 @@ export default {
 	methods: {
 		generateCard() {
 			const card = {
-				id: Date.now(),
+				id: uuidv4(),
 				color: Math.floor(Math.random() * 0xffffff).toString(16),
 				pinned: false,
 			};
