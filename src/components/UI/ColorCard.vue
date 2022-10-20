@@ -1,5 +1,8 @@
 <template>
-	<div class="color-card">card</div>
+	<div
+		class="color-card"
+		:style="{ 'background-color': `#${this.card.color}` }"
+	></div>
 </template>
 
 <script>
@@ -12,14 +15,19 @@ export default {
 			required: true,
 		},
 	},
+	data() {
+		return {
+			card: {},
+		};
+	},
 	methods: {
 		generateCard() {
-			const card = {
+			this.card = {
 				id: uuidv4(),
 				color: Math.floor(Math.random() * 0xffffff).toString(16),
 				pinned: false,
 			};
-			this.$emit("getGeneratedCard", card);
+			this.$emit("getGeneratedCard", this.card);
 		},
 	},
 	watch: {
@@ -35,6 +43,6 @@ export default {
 <style lang="scss">
 .color-card {
 	padding: 50px;
-	border: 1px solid #000;
+	border-bottom: 1px solid #000;
 }
 </style>
