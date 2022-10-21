@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="color-card"
-		:style="{ 'background-color': `#${this.card.color}` }"
+		:style="{ 'background-color': `#${this.card.colorHEX}` }"
 	></div>
 </template>
 
@@ -24,7 +24,9 @@ export default {
 		generateCard() {
 			this.card = {
 				id: uuidv4(),
-				color: Math.floor(Math.random() * 0xffffff).toString(16),
+				colorHEX: (
+					"00000" + ((Math.random() * (1 << 24)) | 0).toString(16)
+				).slice(-6),
 				pinned: false,
 			};
 			this.$emit("getGeneratedCard", this.card);
@@ -42,7 +44,6 @@ export default {
 
 <style lang="scss">
 .color-card {
-	padding: 50px;
 	border-bottom: 1px solid #000;
 }
 </style>

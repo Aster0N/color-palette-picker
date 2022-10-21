@@ -36,4 +36,13 @@ export default {
 </script>
 
 <style lang="scss">
+.cards {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+
+	.color-card {
+		flex-grow: 1;
+	}
+}
 </style>
