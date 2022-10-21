@@ -28,9 +28,23 @@ export default {
 		getGeneratedCard(card) {
 			this.cards.push(card);
 		},
+		setRandomHEXColors() {
+			this.cards.forEach((card) => {
+				card.colorHEX = (
+					"00000" + ((Math.random() * (1 << 24)) | 0).toString(16)
+				).slice(-6);
+			});
+		},
 	},
 	mounted() {
 		this.startGenerateCards = true;
+
+		document.addEventListener("keydown", (event) => {
+			if (event.code.toLowerCase() === "space") {
+				event.preventDefault();
+				this.setRandomHEXColors();
+			}
+		});
 	},
 };
 </script>
