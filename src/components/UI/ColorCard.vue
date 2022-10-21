@@ -2,7 +2,11 @@
 	<div
 		class="color-card"
 		:style="{ 'background-color': `#${this.card.colorHEX}` }"
-	></div>
+	>
+		<button class="pin-card-btn" @click="card.pinned = !card.pinned">
+			<img :src="getThumbtackImage()" alt="thumbtack" />
+		</button>
+	</div>
 </template>
 
 <script>
@@ -30,6 +34,12 @@ export default {
 				pinned: false,
 			};
 			this.$emit("getGeneratedCard", this.card);
+		},
+		getThumbtackImage() {
+			var images = require.context("@/assets/images/", false, /\.svg$/);
+			return this.card.pinned
+				? images("./" + "thumbtack-shaded" + ".svg")
+				: images("./" + "thumbtack" + ".svg");
 		},
 	},
 	watch: {
