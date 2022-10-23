@@ -2,7 +2,9 @@
 	<div
 		class="color-card"
 		:style="{ 'background-color': `#${this.card.colorHEX}` }"
+		@click="copyColorToClipboard"
 	>
+		<span class="color-text">#{{ card.colorHEX }}</span>
 		<button class="pin-card-btn" @click="card.pinned = !card.pinned">
 			<img :src="getThumbtackImage()" alt="thumbtack" />
 		</button>
@@ -41,6 +43,10 @@ export default {
 				? images("./" + "thumbtack-shaded" + ".svg")
 				: images("./" + "thumbtack" + ".svg");
 		},
+		copyColorToClipboard() {
+			this.$emit("setCopiedMessage");
+			return navigator.clipboard.writeText(`#${this.card.colorHEX}`);
+		},
 	},
 	watch: {
 		startGenerateCards(value) {
@@ -54,22 +60,32 @@ export default {
 
 <style lang="scss">
 .color-card {
+	cursor: pointer;
+	flex: 1;
 	border-bottom: 1px solid #000;
 	display: flex;
-	justify-content: center;
+	justify-content: space-evenly;
 	align-items: center;
+	flex-direction: column;
+
+	.color-text {
+		font-size: 1.3em;
+		padding: 10px;
+		border-radius: 5px;
+		background-color: rgba(255, 255, 255, 0.3);
+	}
 
 	.pin-card-btn {
 		cursor: pointer;
 		border: none;
 		border-radius: 5px;
 		outline: none;
-		padding: 5px;
+		background-color: rgba(255, 255, 255, 0.3);
 		transition: all 0.3s ease-in-out;
-		background: transparent;
+		padding: 10px;
 
 		&:hover {
-			background-color: rgba(255, 255, 255, 0.612);
+			background-color: rgba(255, 255, 255, 0.6);
 		}
 	}
 }

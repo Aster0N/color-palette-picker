@@ -1,12 +1,15 @@
 <template>
 	<div>
+		<div class="copied-message" v-show="showCopiedMessage">copied</div>
 		<div class="cards">
 			<color-card
 				v-for="card in cardsNumber"
 				:key="card.id"
 				:startGenerateCards="startGenerateCards"
 				@getGeneratedCard="getGeneratedCard"
+				@setCopiedMessage="setCopiedMessage"
 			/>
+			<div class="backing" v-show="showCopiedMessage"></div>
 		</div>
 	</div>
 </template>
@@ -25,9 +28,16 @@ export default {
 			isInitialLoad: true,
 			cards: [],
 			colors: [],
+			showCopiedMessage: false,
 		};
 	},
 	methods: {
+		setCopiedMessage() {
+			this.showCopiedMessage = true;
+			setTimeout(() => {
+				this.showCopiedMessage = false;
+			}, 300);
+		},
 		getGeneratedCard(card) {
 			if (!this.isInitialLoad) {
 				this.colors.push(card.colorHEX);
@@ -86,6 +96,22 @@ export default {
 </script>
 
 <style lang="scss">
+.copied-message {
+	position: absolute;
+	top: 50px;
+	left: 50%;
+	width: 200px;
+	text-align: center;
+	transform: translateX(-50%);
+	font-size: 1.3em;
+	border-radius: 5px;
+	padding: 20px;
+	text-transform: uppercase;
+	pointer-events: none;
+	background-color: rgb(80, 226, 163);
+	z-index: 1;
+}
+
 .cards {
 	width: 100vw;
 	height: 100vh;
@@ -93,6 +119,15 @@ export default {
 
 	.color-card {
 		flex-grow: 1;
+	}
+
+	.backing {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background-color: rgba(0, 0, 0, 0.8);
 	}
 }
 </style>
