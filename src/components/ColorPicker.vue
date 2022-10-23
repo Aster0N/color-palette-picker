@@ -10,6 +10,12 @@
 				@setCopiedMessage="setCopiedMessage"
 			/>
 			<div class="backing" v-show="showCopiedMessage"></div>
+			<div class="guid-info" v-show="openGuidInfo">
+				<p class="guid-text">Hit the 'space' to change colors</p>
+				<button class="guid-button" @click="openGuidInfo = false">
+					ok
+				</button>
+			</div>
 		</div>
 	</div>
 </template>
@@ -29,6 +35,7 @@ export default {
 			cards: [],
 			colors: [],
 			showCopiedMessage: false,
+			openGuidInfo: false,
 		};
 	},
 	methods: {
@@ -84,6 +91,7 @@ export default {
 	},
 	mounted() {
 		this.startGenerateCards = true;
+		this.openGuidInfo = true;
 
 		document.addEventListener("keydown", (event) => {
 			if (event.code.toLowerCase() === "space") {
@@ -128,6 +136,28 @@ export default {
 		width: 100vw;
 		height: 100vh;
 		background-color: rgba(0, 0, 0, 0.8);
+	}
+
+	.guid-info {
+		padding: 20px;
+		font-size: 1.3em;
+		position: absolute;
+		top: 30px;
+		left: 50%;
+		transform: translateX(-50%);
+		border-radius: 5px;
+		background-color: rgb(245, 245, 245);
+
+		.guid-button {
+			border: none;
+			outline: none;
+			padding: 5px 10px;
+			margin: 0;
+			cursor: pointer;
+			text-transform: uppercase;
+			background-color: rgb(28, 28, 28);
+			color: rgb(245, 245, 245);
+		}
 	}
 }
 </style>

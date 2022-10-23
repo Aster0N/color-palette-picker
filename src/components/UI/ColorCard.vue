@@ -61,7 +61,6 @@ export default {
 
 <style lang="scss">
 .color-card {
-	cursor: pointer;
 	flex: 1;
 	border-bottom: 1px solid #000;
 	display: flex;
@@ -71,6 +70,7 @@ export default {
 
 	.color-text,
 	.pin-card-btn {
+		cursor: pointer;
 		background-color: rgba(255, 255, 255, 0.3);
 		transition: all 0.3s ease-in-out;
 		padding: 10px;
@@ -86,7 +86,6 @@ export default {
 	}
 
 	.pin-card-btn {
-		cursor: pointer;
 		border: none;
 		border-radius: 5px;
 		outline: none;
