@@ -1,5 +1,8 @@
 # color-palette-picker
 
+## Demo
+[Demo](https://aster0n.github.io/color-palette-picker/)
+
 ## Project setup
 ```
 npm install
