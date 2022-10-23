@@ -111,7 +111,7 @@ export default {
 	width: 200px;
 	text-align: center;
 	transform: translateX(-50%);
-	font-size: 1.3em;
+	font-size: 1.1em;
 	border-radius: 5px;
 	padding: 20px;
 	text-transform: uppercase;
@@ -140,7 +140,7 @@ export default {
 
 	.guid-info {
 		padding: 20px;
-		font-size: 1.3em;
+		font-size: 1.1em;
 		position: absolute;
 		top: 30px;
 		left: 50%;
