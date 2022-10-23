@@ -2,9 +2,10 @@
 	<div
 		class="color-card"
 		:style="{ 'background-color': `#${this.card.colorHEX}` }"
-		@click="copyColorToClipboard"
 	>
-		<span class="color-text">#{{ card.colorHEX }}</span>
+		<span class="color-text" @click="copyColorToClipboard"
+			>#{{ card.colorHEX }}</span
+		>
 		<button class="pin-card-btn" @click="card.pinned = !card.pinned">
 			<img :src="getThumbtackImage()" alt="thumbtack" />
 		</button>
@@ -68,18 +69,8 @@ export default {
 	align-items: center;
 	flex-direction: column;
 
-	.color-text {
-		font-size: 1.3em;
-		padding: 10px;
-		border-radius: 5px;
-		background-color: rgba(255, 255, 255, 0.3);
-	}
-
+	.color-text,
 	.pin-card-btn {
-		cursor: pointer;
-		border: none;
-		border-radius: 5px;
-		outline: none;
 		background-color: rgba(255, 255, 255, 0.3);
 		transition: all 0.3s ease-in-out;
 		padding: 10px;
@@ -87,6 +78,18 @@ export default {
 		&:hover {
 			background-color: rgba(255, 255, 255, 0.6);
 		}
+	}
+
+	.color-text {
+		font-size: 1.3em;
+		border-radius: 5px;
+	}
+
+	.pin-card-btn {
+		cursor: pointer;
+		border: none;
+		border-radius: 5px;
+		outline: none;
 	}
 }
 </style>
