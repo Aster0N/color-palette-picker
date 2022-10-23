@@ -2,7 +2,7 @@
 	<div>
 		<div class="cards">
 			<color-card
-				v-for="card in 5"
+				v-for="card in cardsNumber"
 				:key="card.id"
 				:startGenerateCards="startGenerateCards"
 				@getGeneratedCard="getGeneratedCard"
@@ -20,6 +20,7 @@ export default {
 	},
 	data() {
 		return {
+			cardsNumber: 5,
 			startGenerateCards: false,
 			isInitialLoad: true,
 			cards: [],
@@ -28,33 +29,35 @@ export default {
 	},
 	methods: {
 		getGeneratedCard(card) {
-			this.cards.push(card);
 			if (!this.isInitialLoad) {
 				this.colors.push(card.colorHEX);
 			} else {
-				let colorEl = this.getColorsFromHash()[this.cards.length - 1];
-				card.colorHEX = colorEl;
-				this.colors.push(colorEl);
+				let colorsFromHash = this.getColorsFromHash(card.colorHEX);
+				if (colorsFromHash.length) {
+					let colorEl = colorsFromHash[this.cards.length];
+					card.colorHEX = colorEl;
+					this.colors.push(colorEl);
+				} else {
+					this.colors.push(card.colorHEX);
+				}
+			}
+			this.cards.push(card);
+			if (this.cards.length == this.cardsNumber) {
+				this.updateColorsHash();
 			}
 		},
 		setRandomHEXColors() {
-			this.colors = this.isInitialLoad ? this.getColorsFromHash() : [];
+			this.colors = this.getColorsFromHash();
 
 			this.cards.forEach((card, index) => {
 				if (!card.pinned) {
 					let randomHEX = (
 						"00000" + ((Math.random() * (1 << 24)) | 0).toString(16)
 					).slice(-6);
-					card.colorHEX = this.isInitialLoad
-						? this.colors[index]
-							? this.colors[index]
-							: randomHEX
-						: randomHEX;
 
-					if (!this.isInitialLoad) {
-						this.colors[index] = card.colorHEX;
-					}
+					card.colorHEX = randomHEX;
 				}
+				this.colors[index] = card.colorHEX;
 			});
 			this.updateColorsHash();
 			this.isInitialLoad = false;
